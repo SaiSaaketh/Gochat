@@ -3,7 +3,7 @@ import random
 from threading import Thread
 from datetime import datetime
 from colorama import Fore, init, Back
-from plyer import notification
+from win10toast import ToastNotifier
 
 # init colors
 init()
@@ -37,13 +37,8 @@ def listen_for_messages():
     while True:
         message1 = s.recv(1024).decode()
         print("\n" + message1)
-        notification.notify(
-                            title="sai sent you a message", 
-                            message=message1, 
-                            app_name="clichat", 
-                            timeout=8,
-                            toast=True)
-        
+        toast =ToastNotifier()
+        toast.show_toast(title="Hi Someone Sent you a message On clichat",msg=message1)
 
 # make a thread that listens for messages to this client & print them
 t = Thread(target=listen_for_messages)
